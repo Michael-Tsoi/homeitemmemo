@@ -1,0 +1,12 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "app.netlify.homeitemmemo.twa",
+      "sha256_cert_fingerprints": [
+        "待稍後PWABuilder打包後，會自動生成SHA256指紋，貼喺呢度"
+      ]
+    }
+  }
+]

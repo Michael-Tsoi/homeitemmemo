@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover, interactive-widget=resizes-content" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <title>HomeItemMemo｜家物記</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png">
+<link rel="icon" type="image/png" sizes="512x512" href="./icon-512.png">
+<link rel="manifest" href="./manifest.json">
+<meta name="theme-color" content="#2563eb">
+</head>
+<body>
+<div class="container">
+  <!-- 語言切換 -->
+  <div class="lang-switch">
+    <button onclick="setLang('zh-hant')">繁體</button>
+    <button onclick="setLang('zh-cn')">簡體</button>
+    <button onclick="setLang('en')">EN</button>
+  </div>
+  <header>
+    <h1>🏠 <span data-i18n="appTitle">家物記</span></h1>
+    <p class="subtitle" data-i18n="subtitle">記低物件放喺邊，可點擊選擇，亦可自行輸入</p>
+  </header>
+  <!-- 頁面：查看所有物件（預設顯示） -->
+  <div id="page-list" class="page">
+    <h2 data-i18n="pageListTitle">我的物件紀錄</h2>
+    <div id="item-list-container"></div>
+  </div>
+  <!-- 頁面：新增物件 -->
+  <div id="page-add" class="page hidden">
+    <h2 data-i18n="pageAddTitle">新增物件</h2>
+    <p class="label" data-i18n="labelItemName">揀物件類別，或自己輸入物件名稱</p>
+    <input id="custom-name-input" class="input-box" data-placeholder-i18n="phItemName" placeholder="自行輸入物件名稱（例如：老花眼鏡）">
+    <div id="item-btn-grid" class="btn-grid">
+    </div>
+    <p class="label" data-i18n="labelPlace">揀存放位置，或自己輸入位置</p>
+    <input id="custom-place-input" class="input-box" data-placeholder-i18n="phPlace" placeholder="自行輸入存放位置（例如：書房第二格櫃）">
+    <div id="place-btn-grid" class="btn-grid">
+    </div>
+    <p class="label" data-i18n="labelPhoto">物件相片（可唔影）</p>
+    <button class="big-secondary-btn" onclick="openCamera()">📷 <span data-i18n="btnCamera">拍攝相片</span></button>
+    <div id="photo-preview-wrap" class="hidden">
+      <img id="photo-preview" alt="物件相片">
+      <button class="clear-photo-btn" onclick="clearTempPhoto()" data-i18n="btnClearPhoto">清除相片</button>
+    </div>
+    <div class="info-card">
+      <p><span data-i18n="textItem">物件：</span><span id="tmp-name">未揀</span></p>
+      <p><span data-i18n="textPlace">位置：</span><span id="tmp-place">未揀</span></p>
+    </div>
+    <button class="big-primary-btn save-btn" onclick="saveNewItem()">✅ <span data-i18n="btnSave">儲存呢項紀錄</span></button>
+  </div>
+  <!-- 頁面：備份還原 -->
+  <div id="page-backup" class="page hidden">
+    <h2 data-i18n="pageBackupTitle">資料備份與還原</h2>
+    <p class="tip" data-i18n="tipBackup">建議定期備份，換手機可以還原翻紀錄</p>
+    <button class="big-primary-btn" onclick="exportBackup()">📤 <span data-i18n="btnExport">匯出備份檔</span></button>
+    <button class="big-secondary-btn" onclick="document.getElementById('import-file').click()">📥 <span data-i18n="btnImport">匯入備份檔</span></button>
+    <input type="file" id="import-file" accept=".json" class="hidden" onchange="importBackup(event)">
+    <!-- 贊助按鈕 -->
+    <div style="margin-top:24px;border-top:1px solid #e5e7eb;padding-top:20px;">
+      <button class="big-secondary-btn sponsor-button" onclick="openSponsorPage()">
+        💛 <span data-i18n="btnSponsor">支持開發者</span>
+      </button>
+      <!-- 私隱政策按鈕【新增加】 -->
+      <button id="privacyPolicyBtn" class="big-secondary-btn sponsor-button" style="margin-top:12px;">
+        📄 私隱政策 Privacy Policy
+      </button>
+    </div>
+  </div>
+  <!-- 物件詳情彈窗 -->
+  <div id="detail-modal" class="modal-wrap hidden">
+    <div class="modal-box">
+      <h3 id="modal-title"></h3>
+      <div id="modal-photo-wrap" class="hidden">
+        <img id="modal-photo">
+      </div>
+      <p id="modal-place"></p>
+      <div class="modal-btn-row">
+        <button class="del-modal-btn" onclick="deleteCurrentItem()">🗑 <span data-i18n="btnDelete">刪除</span></button>
+        <button onclick="closeModal()"><span data-i18n="btnClose">關閉</span></button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- 底部Tab欄 -->
+<div class="bottom-tab-bar" id="tabBar">
+  <div class="tab-item active" data-page="page-list">
+    <div class="tab-icon">📋</div>
+    <div class="tab-text" data-i18n="tabList">物件列表</div>
+  </div>
+  <div class="tab-item" data-page="page-add">
+    <div class="tab-icon">➕</div>
+    <div class="tab-text" data-i18n="tabAdd">新增物件</div>
+  </div>
+  <div class="tab-item" data-page="page-backup">
+    <div class="tab-icon">💾</div>
+    <div class="tab-text" data-i18n="tabBackup">備份還原</div>
+  </div>
+</div>
+<script src="script.js"></script>
+<script>
+// 註冊PWA Service Worker
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./sw.js')
+      .catch(err => console.log("SW註冊失敗：", err));
+  });
+}
+</script>
+</body>
+</html>
