@@ -460,6 +460,6 @@ document.addEventListener('DOMContentLoaded', function(){
 
 // 私隱政策按鈕
 document.getElementById("privacyPolicyBtn").addEventListener("click", () => {
-  const privacyUrl = "https://homeitemmemo.netlify.app/privacy.html";
+  const privacyUrl = "https://michael-tsoi.github.io/homeitemmemo/privacy.html";
   window.open(privacyUrl, "_blank");
 });
