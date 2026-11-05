@@ -1,10 +1,10 @@
 {
-  "id": "/",
+  "id": "/homeitemmemo/",
   "name": "家物記 | HomeItemMemo",
   "short_name": "家物記",
   "description": "家物記，幫你記錄家中物件存放位置，方便搵嘢，支援相片、備份還原、多語言，完全離線可用。",
   "start_url": "./index.html",
-  "scope": "/",
+  "scope": "/homeitemmemo/",
   "display": "standalone",
   "display_override": ["standalone"],
   "orientation": "portrait",
