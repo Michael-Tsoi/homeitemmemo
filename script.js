@@ -459,7 +459,20 @@ document.addEventListener('DOMContentLoaded', function(){
 })
 
 // 私隱政策按鈕
+/*
 document.getElementById("privacyPolicyBtn").addEventListener("click", () => {
   const privacyUrl = "https://michael-tsoi.github.io/homeitemmemo/privacy.html";
   window.open(privacyUrl, "_blank");
+});
+*/
+// 私隱政策按鈕 - 跟隨 currentLang 自動切換對應語言頁面
+document.getElementById("privacyPolicyBtn").addEventListener("click", () => {
+  const privacyLinks = {
+    "zh-hant": "https://michael-tsoi.github.io/privacy.html",
+    "zh-cn": "https://michael-tsoi.github.io/privacy-zh.html",
+    "en": "https://michael-tsoi.github.io/privacy-en.html"
+  };
+  // 找不到對應語言時，後備預設繁體版
+  const targetUrl = privacyLinks[currentLang] ?? privacyLinks["zh-hant"];
+  window.open(targetUrl, "_blank", "noopener,noreferrer");
 });
