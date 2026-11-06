@@ -419,7 +419,14 @@ function exportBackup() {
   const url = URL.createObjectURL(blob);
   const a = document.createElement("a");
   a.href = url;
-  a.download = t.backupFileName;
+  const now = new Date();
+  const timeStr = now.getFullYear().toString()
+    + (now.getMonth()+1).toString().padStart(2,'0')
+    + now.getDate().toString().padStart(2,'0')
+    + "_"
+    + now.getHours().toString().padStart(2,'0')
+    + now.getMinutes().toString().padStart(2,'0');
+  a.download = "HomeItemMemo_backup_" + timeStr + ".json";
   a.click();
   setTimeout(()=> URL.revokeObjectURL(url), 200);
 }
