@@ -148,7 +148,10 @@ function openSponsorPage(){
     msg = "This is voluntary support. You can still use HomeItemMemo for free without payment. Will open a new browser tab.";
   }
   if(confirm(msg)){
-    window.open(SPONSOR_URL,"_system","noopener,noreferrer");
+    const targetUrl = SPONSOR_URL;
+    // Android Intent 標準寫法，Google Play審核認可，強制跳出WebView
+    const intentLink = `intent:${targetUrl}#Intent;action=android.intent.action.VIEW;scheme=https;package=com.android.chrome;end;`;
+    location.assign(intentLink);
   }
 }
 
