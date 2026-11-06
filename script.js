@@ -148,7 +148,7 @@ function openSponsorPage(){
     msg = "This is voluntary support. You can still use HomeItemMemo for free without payment. Will open a new browser tab.";
   }
   if(confirm(msg)){
-    window.open(SPONSOR_URL,"_blank","noopener,noreferrer");
+    window.open(SPONSOR_URL,"_system","noopener,noreferrer");
   }
 }
 
