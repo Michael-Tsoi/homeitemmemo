@@ -5,7 +5,8 @@
       "namespace": "android_app",
       "package_name": "io.github.michaeltsoi.homeitemmemo",
       "sha256_cert_fingerprints": [
-        "待稍後PWABuilder打包後，會自動生成SHA256指紋，貼喺呢度"
+        "96:AA:54:A8:DB:00:47:57:9F:7E:DD:C5:40:09:0F:5C:F3:EA:B7:60:F5:6E:8E:D5:A9:B3:77:59:82:75:E6:D1",
+        "8A:0D:92:81:A3:F1:09:78:6F:1B:71:8A:7C:32:2E:E5:E2:16:5D:F3:57:AC:27:0A:81:71:3E:74:32:63:95:3E"
       ]
     }
   }

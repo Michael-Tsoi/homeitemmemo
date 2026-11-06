@@ -38,7 +38,8 @@ const i18nTexts = {
     modalPlacePrefix: "存放位置：",
     confirmDelete: "確定要刪除呢條紀錄嗎？刪除之後唔可以還原！",
     confirmImport:"匯入會覆蓋現有全部紀錄，確認繼續？",
-    backupFileName:"家物記備份.json"
+    backupFileName:"家物記備份.json",
+    exportOk: "✅ 匯出成功！檔案已存入手機「下載」資料夾"
   },
   "zh-cn": {
     appTitle: "家物记",
@@ -75,7 +76,8 @@ const i18nTexts = {
     modalPlacePrefix: "存放位置：",
     confirmDelete: "确定要删除这条记录吗？删除后不能恢复！",
     confirmImport:"导入将会覆盖全部现有记录，确定继续？",
-    backupFileName:"家物记备份.json"
+    backupFileName:"家物记备份.json",
+    exportOk: "✅ 导出成功！文件已存入手机「下载」文件夹"
   },
   "en": {
     appTitle: "HomeItemMemo",
@@ -112,7 +114,8 @@ const i18nTexts = {
     modalPlacePrefix: "Location: ",
     confirmDelete: "Are you sure you want to delete this record? It cannot be recovered!",
     confirmImport:"Import will overwrite all existing records. Continue?",
-    backupFileName:"HomeItemMemo_backup.json"
+    backupFileName:"HomeItemMemo_backup.json",
+    exportOk: "✅ Export successful! File saved to Downloads folder"
   }
 };
 const itemCategory = {
@@ -429,7 +432,11 @@ function exportBackup() {
   a.download = "HomeItemMemo_backup_" + timeStr + ".json";
   a.click();
   setTimeout(()=> URL.revokeObjectURL(url), 200);
-}
+  // ========== 呢度加Toast提示 ==========
+   //showToast("✅ 匯出成功！檔案已存入手機「下載」資料夾");
+   showToast(t.exportOk);
+
+ }
 function importBackup(event) {
   const t = i18nTexts[currentLang];
   if(!confirm(t.confirmImport)){
@@ -443,10 +450,12 @@ function importBackup(event) {
     try {
       const data = JSON.parse(e.target.result);
       saveAllItems(data);
-      alert(t.alertImportOk);
+      //alert(t.alertImportOk);
+      showToast(t.alertImportOk);
       renderItemList();
     } catch(err) {
-      alert(t.alertImportFail);
+      //alert(t.alertImportFail);
+      showToast(t.alertImportFail);
     }
   }
   reader.readAsText(file);
@@ -483,3 +492,23 @@ document.getElementById("privacyPolicyBtn").addEventListener("click", () => {
   const targetUrl = privacyLinks[currentLang] ?? privacyLinks["zh-hant"];
   window.open(targetUrl, "_blank", "noopener,noreferrer");
 });
+function showToast(msg) {
+  const toast = document.createElement("div");
+  toast.style.cssText = `
+    position: fixed;
+    bottom: 140px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #222222;
+    color: #fff;
+    padding: 14px 22px;
+    border-radius: 999px;
+    z-index: 99999;
+    font-size: 16px;
+    max-width: 85%;
+    text-align:center;
+  `;
+  toast.textContent = msg;
+  document.body.appendChild(toast);
+  setTimeout(() => toast.remove(), 2800);
+}
