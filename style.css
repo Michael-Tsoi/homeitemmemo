@@ -92,7 +92,7 @@ h2 {
 .input-box {
   width: 100%;
   font-size: 21px;
-  padding: 15px 16px;
+  padding: 15px 12px; /* 左右padding由16px減到12px，騰多啲空間 */
   border: 1px solid #e5e7eb;
   border-radius: 16px;
   margin-bottom: 12px;
@@ -103,7 +103,11 @@ h2 {
 }
 .input-box:focus {
   border-color: #f27024;
-  box-shadow: 0 0 0 4px rgba(242, 112, 36, 0.12);
+  box-shadow: 0 0 4px rgba(242, 112, 36, 0.12);
+}
+.input-box::placeholder {
+  font-size: 16px;  /* placeholder細過輸入文字，唔會逼住 */
+  color: #999;
 }
 /* ---------- 按鈕網格 ---------- */
 .btn-grid {
@@ -439,3 +443,4 @@ h2 {
 body {
   padding-bottom: 110px !important;
 }
+
