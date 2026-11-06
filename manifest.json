@@ -2,7 +2,7 @@
   "name": "家物記 HomeItemMemo",
   "short_name": "家物記",
   "description": "家物記，記錄屋企物品存放位置嘅工具，相片同資料只儲存喺本機手機",
-  "id": "/",
+  "id": "/homeitemmemo/",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
