@@ -149,9 +149,7 @@ function openSponsorPage(){
   }
   if(confirm(msg)){
     const targetUrl = SPONSOR_URL;
-    // Android Intent 標準寫法，Google Play審核認可，強制跳出WebView
-    const intentLink = `intent:${targetUrl}#Intent;action=android.intent.action.VIEW;scheme=https;package=com.android.chrome;end;`;
-    location.assign(intentLink);
+    window.open(targetUrl, "_blank", "noopener,noreferrer");
   }
 }
 
